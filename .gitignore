@@ -1,0 +1,29 @@
+# Mac OS-specific storage files
+.DS_Store
+
+# exclude data from source control
+credentials.yaml
+data/external/*
+!/data/external/.gitkeep
+data/raw/*
+!/data/raw/.gitkeep
+data/interim/*
+!/data/interim/.gitkeep
+data/processed/*
+!/data/processed/.gitkeep
+notebooks/
+old/
+output/figures/*
+!/output/figures/.gitkeep
+output/results/*
+!/output/results/.gitkeep
+output/tables/*
+!/output/tables/.gitkeep
+refs/
+
+# R files
+.RData
+.Rhistory
+.Rproj.user
+*.Rproj
+renv/
