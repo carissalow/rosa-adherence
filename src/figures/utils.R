@@ -47,7 +47,8 @@ format_variable_names <- function(names) {
     gsub("zipcode", "zip code", .) %>%
     gsub(" four", " 4", .) %>%
     gsub("Weekend day", "Weekend", .) %>%
-    gsub("Days since last known chemotherapy treatment", "Time since last chemotherapy (days)", .)
+    gsub("Days since last known chemotherapy treatment", "Time since last chemotherapy (days)", .) %>%
+    gsub("Gender", "Sex/gender", .)
   return(names)
 }
 
@@ -132,7 +133,7 @@ forest_plot <- function(
   forest_headings <- data.frame(
     x = c(panes_x[1], panes_x[3], mean(panes_x[forest_panes]), panes_x[forest_panes[2] + 1], panes_x[forest_panes[2] + 2]),
     y = nrow(forest_terms) + 1,
-    label = c("**Covariate**", "**N**", middle_panel_label, "**Odds Ratio (95% CI)**", "***P* value**"),
+    label = c("**Predictor**", "**N**", middle_panel_label, "**Odds Ratio (95% CI)**", "***P* value**"),
     hjust = c(0, 1, 0.5, 0, 1)
   )
   

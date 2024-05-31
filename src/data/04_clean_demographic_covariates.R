@@ -33,6 +33,7 @@ demographics_clean <- demographics %>%
     # demographics
     age_years = age,
     gender = what_is_your_gender,
+    hispanic = do_you_consider_yourself_to_be_of_latin_or_hispanic_origin,
     race = what_is_your_race_ethnicity,
     education = what_is_the_highest_level_of_education_that_you_completed,
     # tech literacy

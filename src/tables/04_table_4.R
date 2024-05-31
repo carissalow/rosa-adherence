@@ -64,6 +64,7 @@ univariable_model_results <- univariable_model_results %>%
     term_label = gsub("Baseline_promis_preference_", "Baseline PROMIS, ", term_label),
     term_label = case_when(
       term_label == "Age_years" ~ "Age (years, centered at mean)",
+      term_label == "Gender" ~ "Sex/gender",
       term_label == "Race_collapsed" ~ "Race (collapsed)",
       term_label == "Education_collapsed" ~ "Education (collapsed)",
       term_label == "Forhp_rural_zipcode" ~ "Rural zip code",
@@ -124,7 +125,7 @@ table_4 <- univariable_model_results %>%
   fmt_integer(columns = n_per_level) %>%
   fmt_markdown(columns = contains("or_and_ci")) %>%
   sub_missing(missing_text = "") %>%
-  tab_stubhead(md("**Covariate**")) %>%
+  tab_stubhead(md("**Predictor**")) %>%
   tab_stub_indent(
     rows = level_number != 0,
     indent = 3
@@ -214,7 +215,7 @@ table_4_w_q_values <- univariable_model_results %>%
   fmt_integer(columns = n_per_level) %>%
   fmt_markdown(columns = contains("or_and_ci")) %>%
   sub_missing(missing_text = "") %>%
-  tab_stubhead(md("**Covariate**")) %>%
+  tab_stubhead(md("**Predictor**")) %>%
   tab_stub_indent(
     rows = level_number != 0,
     indent = 3

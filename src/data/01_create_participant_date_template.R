@@ -16,7 +16,7 @@ excluded_dates <- read_file_with_clean_names(file = "data/raw/ROSA-ExcludedDates
 
 study_dates_and_indexes <- study_dates %>%
   full_join(excluded_dates, by = "record_id") %>%
-  mutate(across(ends_with("_date") & !is.Date, as.Date, "%m/%d/%y")) %>%
+  mutate(across(ends_with("_date") & !lubridate::is.Date, as.Date, "%m/%d/%y")) %>%
   group_by(record_id)  %>%
   convert_date_to_study_day(
     start_date_column = "study_start_date",

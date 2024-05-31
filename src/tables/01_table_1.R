@@ -16,7 +16,7 @@ daily_data <- read_csv(here::here("data/processed/rosa_within_subjects_daily_dat
 
 covariate_columns <- list(
   study_covariate_columns = c("study_completion_status"),
-  demographic_covariate_columns = c("age_years", "gender", "race",  "education"),
+  demographic_covariate_columns = c("age_years", "gender", "hispanic", "race",  "education"),
   ses_covariate_columns = c("forhp_rural_zipcode"),
   tech_literacy_covariate_columns = c("phone_type"), 
   baseline_qol_covariate_columns = grep("baseline_promis", colnames(daily_data), value = TRUE),
@@ -29,6 +29,8 @@ participant_characteristics_data <- daily_data %>%
   mutate(
     gender = as.factor(gender),
     race = factor(race, levels = c("White/Caucasian", "Black/African American", "Asian", "Other", "More than one race/ethnicity")),
+    ethnicity = case_when(hispanic == "Yes" ~ "Hispanic", hispanic == "No" ~ "Non-Hispanic", TRUE ~ NA_character_),
+    ethnicity = factor(ethnicity, levels = c("Non-Hispanic", "Hispanic")),
     education = factor(education, levels = c("Less than a high school diploma", "High school diploma or equivalent", "Some college, no degree", "Associate of arts or other 2-year degree", "Bachelor's degree", "Graduate degree")),
     forhp_rural_zipcode = as.factor(forhp_rural_zipcode),
     insurance_plan_type_collapsed = factor(insurance_plan_type_collapsed, levels = c("Private", "Public", "Mixed")),
@@ -41,7 +43,9 @@ participant_characteristics_data <- daily_data %>%
       .cols = where(is.factor), 
       .fns = function(x) forcats::fct_explicit_na(x, na_level = "Unknown")
     )
-  ) 
+  ) %>%
+  select(-hispanic) %>%
+  relocate(ethnicity, .after = "race")
 
 
 #### create table 1 ----
@@ -54,8 +58,9 @@ table_1 <- participant_characteristics_data %>%
     include = -c("record_id", "study_completion_status"),
     label = list(
       age_years = "Age (years), mean (SD) [range]",
-      gender = "Gender, n (%)",
+      gender = "Sex/gender, n (%)",
       race = "Race, n (%)",
+      ethnicity = "Ethnicity, n (%)",
       education = "Education, n (%)",
       forhp_rural_zipcode = "Rural zip code, n (%)",
       phone_type = "Phone type, n (%)",
@@ -128,8 +133,9 @@ table_1_w_comparison <- participant_characteristics_data %>%
     label = list(
       study_completion_status = "Study completion status",
       age_years = "Age (years), mean (SD)",
-      gender = "Gender, n (%)",
+      gender = "Sex/gender, n (%)",
       race = "Race, n (%)",
+      ethnicity = "Ethnicity, n (%)",
       education = "Education, n (%)",
       forhp_rural_zipcode = "Rural zip code, n (%)",
       phone_type = "Phone type, n (%)",
