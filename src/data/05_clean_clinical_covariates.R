@@ -29,6 +29,10 @@ clinical_clean <- clinical %>%
   mutate(
     days_since_diagnosis_at_enrollment = as.numeric(study_start_date - cancer_diagnosis_date, units = "days"),
     months_since_diagnosis_at_enrollment = lubridate::interval(cancer_diagnosis_date, study_start_date) %/% months(1),
+    cancer_type = case_when(
+      cancer_type == "GI" ~ "GI tract",
+      TRUE ~ cancer_type
+    ),
     cancer_stage_four = case_when(
       cancer_stage == 4 ~ "Yes",
       cancer_stage < 4 ~ "No",

@@ -29,7 +29,7 @@ apply_data_transformations <- function(data, mean_age = NULL) {
       phone_type = factor(phone_type, levels = c("iPhone", "Android")),
       forhp_rural_zipcode = factor(forhp_rural_zipcode, levels = c("No", "Yes")),
       insurance_plan_type_collapsed = factor(insurance_plan_type_collapsed, levels = c("Private", "Mixed", "Public")),
-      cancer_type_collapsed = factor(cancer_type_collapsed, levels = c("GI", "Pancreas", "Breast", "Urogenital", "Other")),
+      cancer_type_collapsed = factor(cancer_type_collapsed, levels = c("GI tract", "Pancreas", "Breast", "Urogenital", "Other")),
       cancer_stage_four = factor(cancer_stage_four, levels = c("No", "Yes"))
     )
   
